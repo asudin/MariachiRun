@@ -75,7 +75,7 @@ public class GameManager : MonoBehaviour
             IncreasePlayerScore();
         }
 
-        //Viewing the sccores on the screen
+        //Viewing the scores on the screen
         highScoreText.text = "High score: " + highScore;
         playerScoreText.text = "Your score: " + playerScore;
 

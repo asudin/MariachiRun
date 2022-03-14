@@ -7,6 +7,8 @@ public class PlayerControl : MonoBehaviour
     private float _jumpForce = 500f;
     private float _upOrDown;
 
+    public AudioSource _buttonClip;
+
     Animator anim;
     Rigidbody2D rb;
 
@@ -30,11 +32,13 @@ public class PlayerControl : MonoBehaviour
             if (_upOrDown > 0 && rb.velocity.y == 0)
             {
                 rb.velocity = new Vector3(0, _jumpForce, 0);
+                _buttonClip.Play();
             }
 
             if (_upOrDown < 0 && rb.velocity.y == 0)
             {
                 anim.SetBool("isDown", true);
+                _buttonClip.Play();
             }
             else
             {
