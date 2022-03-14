@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityStandardAssets.CrossPlatformInput;
+using System.Collections;
 
 public class PlayerControl : MonoBehaviour
 {
@@ -8,7 +9,11 @@ public class PlayerControl : MonoBehaviour
     private float _upOrDown;
 
     public GameObject deathEffect;
-    public AudioSource _jumpEffect, _duckEffect;
+    [Space]
+
+    [Header("SOUNDS")]
+    public AudioSource jumpSound;
+    public AudioSource duckSound;
 
     Animator anim;
     Rigidbody2D rb;
@@ -33,13 +38,13 @@ public class PlayerControl : MonoBehaviour
             if (_upOrDown > 0 && rb.velocity.y == 0)
             {
                 rb.velocity = new Vector3(0, _jumpForce, 0);
-                _jumpEffect.Play();
+                jumpSound.Play();
             }
 
             if (_upOrDown < 0 && rb.velocity.y == 0)
             {
                 anim.SetBool("isDown", true);
-                _duckEffect.Play();
+                duckSound.Play();
             }
             else
             {

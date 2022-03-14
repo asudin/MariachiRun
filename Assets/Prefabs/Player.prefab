@@ -332,8 +332,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpForce: 10
   deathEffect: {fileID: 531220392871425044, guid: 307421a91194d8f4ca819ae25e7e7faf, type: 3}
-  _jumpEffect: {fileID: 2952320225515522488}
-  _duckEffect: {fileID: 2952320225515522491}
+  jumpSound: {fileID: 2952320225515522488}
+  duckSound: {fileID: 2952320225515522491}
 --- !u!95 &2952320225515522370
 Animator:
   serializedVersion: 3
