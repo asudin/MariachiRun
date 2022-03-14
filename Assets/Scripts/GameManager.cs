@@ -5,16 +5,23 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
     [SerializeField]
-    GameObject restartButton;
+    GameObject deathScreen;
+    [Space]
 
-    [SerializeField]
-    GameObject[] obstacles;
-
+    [Header("SCORE")]
     [SerializeField]
     Text highScoreText;
 
     [SerializeField]
     Text playerScoreText;
+
+    [SerializeField]
+    Text deathScoreText;
+    [Space]
+
+    [Header("OBSTACLES")]
+    [SerializeField]
+    GameObject[] obstacles;
 
     [SerializeField]
     Transform spawnPoint;
@@ -50,7 +57,7 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 1f;
         gameStopped = false;
 
-        restartButton.SetActive(false);
+        deathScreen.SetActive(false);
 
         //Initializing player score settings
         playerScore = 0;
@@ -94,7 +101,13 @@ public class GameManager : MonoBehaviour
         Time.timeScale = 0;
 
         gameStopped = true;
-        restartButton.SetActive(true);
+        deathScreen.SetActive(true);
+
+        //Show player score and disable active game screen scores
+        deathScoreText.text = "Your score: " + playerScore;
+        
+        playerScoreText.gameObject.SetActive(false);
+        highScoreText.gameObject.SetActive(false);
     }
 
     //Spawn random enemies obstacles in front of player
@@ -126,5 +139,10 @@ public class GameManager : MonoBehaviour
     public void RestartGame()
     {
         SceneManager.LoadScene(0);
+    }
+
+    public void QuitGame()
+    {
+        Application.Quit();
     }
 }
