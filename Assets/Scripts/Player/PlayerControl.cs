@@ -7,7 +7,8 @@ public class PlayerControl : MonoBehaviour
     private float _jumpForce = 500f;
     private float _upOrDown;
 
-    public AudioSource _buttonClip;
+    public GameObject deathEffect;
+    public AudioSource _jumpEffect, _duckEffect;
 
     Animator anim;
     Rigidbody2D rb;
@@ -32,18 +33,27 @@ public class PlayerControl : MonoBehaviour
             if (_upOrDown > 0 && rb.velocity.y == 0)
             {
                 rb.velocity = new Vector3(0, _jumpForce, 0);
-                _buttonClip.Play();
+                _jumpEffect.Play();
             }
 
             if (_upOrDown < 0 && rb.velocity.y == 0)
             {
                 anim.SetBool("isDown", true);
-                _buttonClip.Play();
+                _duckEffect.Play();
             }
             else
             {
                 anim.SetBool("isDown", false);
             }
+        }
+    }
+
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.tag.Equals("Obstacle"))
+        {
+            Destroy(gameObject);
+            Instantiate(deathEffect, transform.position, Quaternion.identity);
         }
     }
 }

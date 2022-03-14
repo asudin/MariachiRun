@@ -12,7 +12,7 @@ public class ObstacleControl : MonoBehaviour
             transform.position.y);
 
         //Destroy obstacle when out of screen boundaries
-        if (transform.position.x < -13f)
+        if (transform.position.x < -20f)
         {
             Destroy(gameObject);
         }
@@ -24,6 +24,8 @@ public class ObstacleControl : MonoBehaviour
         if (collision.gameObject.name.Equals("Player"))
         {
             GameManager.instance.GameOver();
+
+            Destroy(gameObject);
         }
     }
 }
