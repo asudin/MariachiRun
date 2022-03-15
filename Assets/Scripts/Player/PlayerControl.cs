@@ -59,6 +59,8 @@ public class PlayerControl : MonoBehaviour
         {
             Destroy(gameObject);
             Instantiate(deathEffect, transform.position, Quaternion.identity);
+
+            GameManager.instance.GameOver();
         }
     }
 }

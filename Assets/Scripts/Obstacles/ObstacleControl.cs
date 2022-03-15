@@ -23,8 +23,6 @@ public class ObstacleControl : MonoBehaviour
     {
         if (collision.gameObject.name.Equals("Player"))
         {
-            GameManager.instance.GameOver();
-
             Destroy(gameObject);
         }
     }
