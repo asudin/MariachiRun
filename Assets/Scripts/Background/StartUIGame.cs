@@ -1,12 +1,11 @@
 using UnityEngine;
-using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
 public class StartUIGame : MonoBehaviour
 {
+    [Header("UI OBSTACLES")]
     [SerializeField, Tooltip("Enemies that appear in UI.")]
     GameObject[] obstacles;
-    [Space]
 
     [SerializeField]
     Transform spawnPoint;
@@ -31,7 +30,6 @@ public class StartUIGame : MonoBehaviour
 
     private void Update()
     {
-
         if (Time.time > nextSpawn)
         {
             SpawnObstacle();
@@ -46,13 +44,12 @@ public class StartUIGame : MonoBehaviour
         int randomObstacle = Random.Range(0, obstacles.Length);
         GameObject newEnemy = Instantiate(obstacles[randomObstacle]);
 
-        newEnemy.transform.position = spawnPoint.position + new Vector3(0, Random.Range(-spawnHeight, spawnHeight), 0);
-
-        //Instantiate(obstacles[randomObstacle], spawnPoint.position[Random.Range(-spawnHeight, spawnHeight)], Quaternion.identity);
+        //Randomly change the spawned obstacle position for UI aesthetics
+        newEnemy.transform.position = new Vector2(spawnPoint.position.x, Random.Range(-spawnHeight, spawnHeight));
     }
 
     public void StartGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 }

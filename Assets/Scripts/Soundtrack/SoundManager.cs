@@ -1,19 +1,17 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class SoundManager : MonoBehaviour
 {
-    public static SoundManager instance;
+    public static SoundManager Instance;
 
     [SerializeField]
-    private AudioSource _musicSource, _effectSource;
+    private AudioSource _musicSource, _restartSource;
 
     private void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
             DontDestroyOnLoad(gameObject);
         }
         else
@@ -24,6 +22,6 @@ public class SoundManager : MonoBehaviour
 
     public void PlaySound(AudioClip clip)
     {
-        _effectSource.PlayOneShot(clip);
+        _restartSource.PlayOneShot(clip);
     }    
 }

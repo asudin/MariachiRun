@@ -1,6 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using System.Collections;
 
 public class GameManager : MonoBehaviour
 {
@@ -35,6 +36,7 @@ public class GameManager : MonoBehaviour
     private float nextBoost;
 
     private int highScore = 0, playerScore = 0;
+    private float _slowdownFactor = 0.2f;
 
     public static bool gameStopped;
     public static GameManager instance;
@@ -75,7 +77,7 @@ public class GameManager : MonoBehaviour
             IncreasePlayerScore();
         }
 
-        //Viewing the sccores on the screen
+        //Viewing the scores on the screen
         highScoreText.text = "High score: " + highScore;
         playerScoreText.text = "Your score: " + playerScore;
 
@@ -92,22 +94,30 @@ public class GameManager : MonoBehaviour
 
     public void GameOver()
     {
+        StartCoroutine(DelayedGameOver());
+    }
+
+    IEnumerator DelayedGameOver()
+    {
         //If player scored more than highscore set new highscore
         if (playerScore > highScore)
         {
             PlayerPrefs.SetInt("highscore", playerScore);
         }
 
-        Time.timeScale = 0;
+        Time.timeScale = _slowdownFactor;
 
         gameStopped = true;
         deathScreen.SetActive(true);
 
         //Show player score and disable active game screen scores
         deathScoreText.text = "Your score: " + playerScore;
-        
+
         playerScoreText.gameObject.SetActive(false);
         highScoreText.gameObject.SetActive(false);
+
+        yield return new WaitForSecondsRealtime(1.5f);
+        Time.timeScale = 0;
     }
 
     //Spawn random enemies obstacles in front of player
@@ -123,7 +133,7 @@ public class GameManager : MonoBehaviour
     void BoostTime()
     {
         nextBoost = Time.unscaledTime + timeToBoost;
-        Time.timeScale += 0.25f;
+        Time.timeScale += 0.025f;
     }
 
     //Increase player score with each second passing by
@@ -138,7 +148,7 @@ public class GameManager : MonoBehaviour
 
     public void RestartGame()
     {
-        SceneManager.LoadScene(0);
+        SceneManager.LoadScene(1);
     }
 
     public void QuitGame()
